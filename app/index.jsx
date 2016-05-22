@@ -3,6 +3,7 @@ import { createStore } from 'redux';
 import ReactDom from 'react-dom';
 
 import Counter from './components/Counter';
+import todos from './reducers/todos';
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -30,29 +31,3 @@ const render = () => {
 
 store.subscribe(render);
 render();
-
-//------------------------------------------------------------------------------
-
-import expect from 'expect';
-import deepFreeze from 'deep-freeze';
-
-const toggleTodo = (todo) => ({ ...todo, completed: !todo.completed });
-
-const testToggleTodo = () => {
-  const t1 = {
-    id: 0,
-    text: 'Learn Redux',
-    completed: false,
-  };
-  const t2 = {
-    id: 0,
-    text: 'Learn Redux',
-    completed: true,
-  };
-
-  deepFreeze(t1);
-
-  expect(toggleTodo(t1)).toEqual(t2);
-};
-
-testToggleTodo();
