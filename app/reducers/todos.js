@@ -2,19 +2,27 @@ import _ from 'underscore';
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 
-const todos = (state = [], action) => {
+const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO': {
-      const todo = _.omit(action, 'type');
-      return [...state, { ...todo, completed: false }];
+      return { ..._.omit(action, 'type'), completed: false };
     }
     case 'TOGGLE_TODO':
-      return state.map(todo => {
-        if (todo.id === action.id) {
-          return { ...todo, completed: !todo.completed };
-        }
-        return todo;
-      });
+      if (state.id !== action.id) {
+        return state;
+      }
+      return { ...state, completed: !state.completed };
+    default:
+      return state;
+  }
+};
+
+const todos = (state = [], action) => {
+  switch (action.type) {
+    case 'ADD_TODO':
+      return [...state, todo(undefined, action)];
+    case 'TOGGLE_TODO':
+      return state.map(t => todo(t, action));
     default:
       return state;
   }
