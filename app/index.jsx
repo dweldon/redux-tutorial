@@ -6,7 +6,7 @@ import store from './store';
 
 const render = () => {
   ReactDom.render(
-    <TodoApp todos={store.getState().todos} />,
+    <TodoApp {...store.getState()} />,
     document.getElementById('root')
   );
 };
