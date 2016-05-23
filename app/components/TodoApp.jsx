@@ -1,6 +1,7 @@
 import React from 'react';
 
 import store from '../store';
+import TodoList from './TodoList';
 import FilterLink from './FilterLink';
 
 let nextTodoId = 0;
@@ -20,6 +21,7 @@ export default class TodoApp extends React.Component {
   constructor(props) {
     super(props);
     this.addTodo = this.addTodo.bind(this);
+    this.toggleTodo = this.toggleTodo.bind(this);
   }
 
   addTodo() {
@@ -46,19 +48,10 @@ export default class TodoApp extends React.Component {
       <div>
         <input ref={node => { this.input = node; }} />
         <button onClick={this.addTodo}>Add Todo</button>
-        <ul>
-          {visibleTodos.map(todo =>
-            <li
-              key={todo.id}
-              onClick={this.toggleTodo.bind(this, todo.id)}
-              style={{ textDecoration: todo.completed ?
-                'line-through' : 'none',
-              }}
-            >
-            {todo.text}
-            </li>
-          )}
-        </ul>
+        <TodoList
+          todos={visibleTodos}
+          onTodoClick={this.toggleTodo}
+        />
         <p>
           Show:
           {" "}
