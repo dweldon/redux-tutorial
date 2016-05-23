@@ -35,7 +35,7 @@ render();
 
 import rootReducer from './reducers/index';
 
-const store2 = createStore(rootReducer, [],
+const store2 = createStore(rootReducer, {},
   window.devToolsExtension && window.devToolsExtension()
 );
 
