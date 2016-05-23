@@ -1,8 +1,9 @@
 import React from 'react';
 
 import store from '../store';
+import Footer from './Footer';
+import AddTodo from './AddTodo';
 import TodoList from './TodoList';
-import FilterLink from './FilterLink';
 
 let nextTodoId = 0;
 
@@ -15,68 +16,44 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
+const setVisibilityFilter = (filter) => {
+  store.dispatch({
+    type: 'SET_VISIBILITY_FILTER',
+    filter,
+  });
+};
+
+const addTodo = (text) => {
+  store.dispatch({
+    type: 'ADD_TODO',
+    id: nextTodoId++,
+    text,
+  });
+};
+
+const toggleTodo = (id) => {
+  store.dispatch({
+    type: 'TOGGLE_TODO',
+    id,
+  });
+};
+
 /* eslint-disable react/prop-types, react/jsx-no-bind */
 
-export default class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-    this.addTodo = this.addTodo.bind(this);
-    this.toggleTodo = this.toggleTodo.bind(this);
-  }
+const TodoApp = ({ todos, visibilityFilter }) => (
+  <div>
+    <AddTodo
+      onAddClick={addTodo}
+    />
+    <TodoList
+      todos={getVisibleTodos(todos, visibilityFilter)}
+      onTodoClick={toggleTodo}
+    />
+    <Footer
+      visibilityFilter={visibilityFilter}
+      onFilterClick={setVisibilityFilter}
+    />
+  </div>
+);
 
-  addTodo() {
-    store.dispatch({
-      type: 'ADD_TODO',
-      id: nextTodoId++,
-      text: this.input.value,
-    });
-    this.input.value = '';
-  }
-
-  toggleTodo(id) {
-    store.dispatch({
-      type: 'TOGGLE_TODO',
-      id,
-    });
-  }
-
-  render() {
-    const { todos, visibilityFilter } = this.props;
-    const visibleTodos = getVisibleTodos(todos, visibilityFilter);
-
-    return (
-      <div>
-        <input ref={node => { this.input = node; }} />
-        <button onClick={this.addTodo}>Add Todo</button>
-        <TodoList
-          todos={visibleTodos}
-          onTodoClick={this.toggleTodo}
-        />
-        <p>
-          Show:
-          {" "}
-          <FilterLink
-            filter="SHOW_ALL"
-            currentFilter={visibilityFilter}
-          >
-          All
-          </FilterLink>
-          {" "}
-          <FilterLink
-            filter="SHOW_ACTIVE"
-            currentFilter={visibilityFilter}
-          >
-          Active
-          </FilterLink>
-          {" "}
-          <FilterLink
-            filter="SHOW_COMPLETED"
-            currentFilter={visibilityFilter}
-          >
-          Completed
-          </FilterLink>
-        </p>
-      </div>
-    );
-  }
-}
+export default TodoApp;

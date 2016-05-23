@@ -2,7 +2,7 @@ import React from 'react';
 
 /* eslint-disable react/prop-types */
 
-export default ({ onClick, completed, text }) => (
+const Todo = ({ onClick, completed, text }) => (
   <li
     onClick={onClick}
     style={{ textDecoration: completed ? 'line-through' : 'none' }}
@@ -10,3 +10,5 @@ export default ({ onClick, completed, text }) => (
   {text}
   </li>
 );
+
+export default Todo;

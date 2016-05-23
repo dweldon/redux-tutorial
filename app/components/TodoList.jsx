@@ -4,7 +4,7 @@ import Todo from './Todo';
 
 /* eslint-disable react/prop-types */
 
-export default ({ todos, onTodoClick }) => (
+const TodoList = ({ todos, onTodoClick }) => (
   <ul>
     {todos.map(todo =>
       <Todo
@@ -15,3 +15,5 @@ export default ({ todos, onTodoClick }) => (
     )}
   </ul>
 );
+
+export default TodoList;

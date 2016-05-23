@@ -1,10 +1,8 @@
 import React from 'react';
 
-import store from '../store';
-
 /* eslint-disable react/prop-types */
 
-export default ({ filter, currentFilter, children }) => {
+const FilterLink = ({ filter, currentFilter, children, onClick }) => {
   if (filter === currentFilter) {
     return <span>{children}</span>;
   }
@@ -13,13 +11,12 @@ export default ({ filter, currentFilter, children }) => {
       href="#"
       onClick={e => {
         e.preventDefault();
-        store.dispatch({
-          type: 'SET_VISIBILITY_FILTER',
-          filter,
-        });
+        onClick(filter);
       }}
     >
     {children}
     </a>
   );
 };
+
+export default FilterLink;
