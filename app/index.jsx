@@ -3,7 +3,6 @@ import { createStore } from 'redux';
 import ReactDom from 'react-dom';
 
 import Counter from './components/Counter';
-import todos from './reducers/todos';
 
 const counter = (state = 0, action) => {
   switch (action.type) {
@@ -31,3 +30,33 @@ const render = () => {
 
 store.subscribe(render);
 render();
+
+//------------------------------------------------------------------------------
+
+import rootReducer from './reducers/index';
+
+const store2 = createStore(rootReducer, [],
+  window.devToolsExtension && window.devToolsExtension()
+);
+
+store2.dispatch({
+  type: 'ADD_TODO',
+  id: 0,
+  text: 'Learn Redux',
+});
+
+store2.dispatch({
+  type: 'ADD_TODO',
+  id: 1,
+  text: 'Go Shopping',
+});
+
+store2.dispatch({
+  type: 'TOGGLE_TODO',
+  id: 0,
+});
+
+store2.dispatch({
+  type: 'SET_VISIBILITY_FILTER',
+  filter: 'SHOW_COMPLETED',
+});
