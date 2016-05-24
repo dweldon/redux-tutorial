@@ -1,5 +1,6 @@
 import React from 'react';
 
+import store from '../store';
 import Footer from './Footer';
 import AddTodo from './AddTodo';
 import VisibleTodoList from './VisibleTodoList';
@@ -8,9 +9,9 @@ import VisibleTodoList from './VisibleTodoList';
 
 const TodoApp = () => (
   <div>
-    <AddTodo />
-    <VisibleTodoList />
-    <Footer />
+    <AddTodo store={store} />
+    <VisibleTodoList store={store} />
+    <Footer store={store} />
   </div>
 );
 

@@ -1,9 +1,8 @@
 import React from 'react';
 
-import store from '../store';
 import Link from './Link';
 
-const setVisibilityFilter = (filter) => {
+const setVisibilityFilter = (store, filter) => {
   store.dispatch({
     type: 'SET_VISIBILITY_FILTER',
     filter,
@@ -14,6 +13,7 @@ const setVisibilityFilter = (filter) => {
 
 class FilterLink extends React.Component {
   componentDidMount() {
+    const { store } = this.props;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
 
@@ -22,13 +22,14 @@ class FilterLink extends React.Component {
   }
 
   render() {
+    const { store } = this.props;
     const { props } = this;
     const state = store.getState();
 
     return (
       <Link
         active={props.filter === state.visibilityFilter}
-        onClick={() => setVisibilityFilter(props.filter)}
+        onClick={() => setVisibilityFilter(store, props.filter)}
       >
       {props.children}
       </Link>

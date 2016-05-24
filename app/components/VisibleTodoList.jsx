@@ -1,6 +1,5 @@
 import React from 'react';
 
-import store from '../store';
 import TodoList from './TodoList';
 
 const getVisibleTodos = (todos, filter) => {
@@ -12,7 +11,7 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const toggleTodo = (id) => {
+const toggleTodo = (store, id) => {
   store.dispatch({
     type: 'TOGGLE_TODO',
     id,
@@ -23,6 +22,7 @@ const toggleTodo = (id) => {
 
 class VisibleTodoList extends React.Component {
   componentDidMount() {
+    const { store } = this.props;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
 
@@ -31,12 +31,13 @@ class VisibleTodoList extends React.Component {
   }
 
   render() {
+    const { store } = this.props;
     const state = store.getState();
 
     return (
       <TodoList
         todos={getVisibleTodos(state.todos, state.visibilityFilter)}
-        onTodoClick={id => toggleTodo(id)}
+        onTodoClick={id => toggleTodo(store, id)}
       />
     );
   }
