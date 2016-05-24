@@ -16,13 +16,6 @@ const getVisibleTodos = (todos, filter) => {
   }
 };
 
-const setVisibilityFilter = (filter) => {
-  store.dispatch({
-    type: 'SET_VISIBILITY_FILTER',
-    filter,
-  });
-};
-
 const addTodo = (text) => {
   store.dispatch({
     type: 'ADD_TODO',
@@ -49,10 +42,7 @@ const TodoApp = ({ todos, visibilityFilter }) => (
       todos={getVisibleTodos(todos, visibilityFilter)}
       onTodoClick={toggleTodo}
     />
-    <Footer
-      visibilityFilter={visibilityFilter}
-      onFilterClick={setVisibilityFilter}
-    />
+    <Footer />
   </div>
 );
 
