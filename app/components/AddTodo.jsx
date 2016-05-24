@@ -12,7 +12,7 @@ const addTodo = (store, text) => {
 
 /* eslint-disable react/prop-types */
 
-const AddTodo = ({ store }) => {
+const AddTodo = (props, { store }) => {
   let input;
 
   return (
@@ -29,5 +29,7 @@ const AddTodo = ({ store }) => {
     </div>
   );
 };
+
+AddTodo.contextTypes = { store: React.PropTypes.object };
 
 export default AddTodo;

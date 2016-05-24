@@ -13,7 +13,7 @@ const setVisibilityFilter = (store, filter) => {
 
 class FilterLink extends React.Component {
   componentDidMount() {
-    const { store } = this.props;
+    const { store } = this.context;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
 
@@ -22,7 +22,7 @@ class FilterLink extends React.Component {
   }
 
   render() {
-    const { store } = this.props;
+    const { store } = this.context;
     const { props } = this;
     const state = store.getState();
 
@@ -36,5 +36,7 @@ class FilterLink extends React.Component {
     );
   }
 }
+
+FilterLink.contextTypes = { store: React.PropTypes.object };
 
 export default FilterLink;

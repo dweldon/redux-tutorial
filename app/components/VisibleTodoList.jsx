@@ -22,7 +22,7 @@ const toggleTodo = (store, id) => {
 
 class VisibleTodoList extends React.Component {
   componentDidMount() {
-    const { store } = this.props;
+    const { store } = this.context;
     this.unsubscribe = store.subscribe(() => this.forceUpdate());
   }
 
@@ -31,7 +31,7 @@ class VisibleTodoList extends React.Component {
   }
 
   render() {
-    const { store } = this.props;
+    const { store } = this.context;
     const state = store.getState();
 
     return (
@@ -42,5 +42,7 @@ class VisibleTodoList extends React.Component {
     );
   }
 }
+
+VisibleTodoList.contextTypes = { store: React.PropTypes.object };
 
 export default VisibleTodoList;
