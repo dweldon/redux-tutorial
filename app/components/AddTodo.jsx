@@ -1,8 +1,20 @@
 import React from 'react';
 
+import store from '../store';
+
+let nextTodoId = 0;
+
+const addTodo = (text) => {
+  store.dispatch({
+    type: 'ADD_TODO',
+    id: nextTodoId++,
+    text,
+  });
+};
+
 /* eslint-disable react/prop-types */
 
-const AddTodo = ({ onAddClick }) => {
+const AddTodo = () => {
   let input;
 
   return (
@@ -10,7 +22,7 @@ const AddTodo = ({ onAddClick }) => {
       <input ref={node => { input = node; }} />
       <button
         onClick={() => {
-          onAddClick(input.value);
+          addTodo(input.value);
           input.value = '';
         }}
       >
