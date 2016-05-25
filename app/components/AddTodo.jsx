@@ -1,9 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 let nextTodoId = 0;
 
-const addTodo = (store, text) => {
-  store.dispatch({
+const addTodo = (dispatch, text) => {
+  dispatch({
     type: 'ADD_TODO',
     id: nextTodoId++,
     text,
@@ -12,7 +13,7 @@ const addTodo = (store, text) => {
 
 /* eslint-disable react/prop-types */
 
-const AddTodo = (props, { store }) => {
+const AddTodo = ({ dispatch }) => {
   let input;
 
   return (
@@ -20,7 +21,7 @@ const AddTodo = (props, { store }) => {
       <input ref={node => { input = node; }} />
       <button
         onClick={() => {
-          addTodo(store, input.value);
+          addTodo(dispatch, input.value);
           input.value = '';
         }}
       >
@@ -30,6 +31,5 @@ const AddTodo = (props, { store }) => {
   );
 };
 
-AddTodo.contextTypes = { store: React.PropTypes.object };
-
-export default AddTodo;
+// If no arguments are provided, only the dispatch is mapped as a prop.
+export default connect()(AddTodo);
