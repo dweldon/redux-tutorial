@@ -1,6 +1,14 @@
 import { createStore } from 'redux';
 import rootReducer from './reducers/index';
 
-export default createStore(rootReducer, {},
+const persistedState = {
+  todos: [{
+    id: 100,
+    text: 'Welcome back!',
+    completed: false,
+  }],
+};
+
+export default createStore(rootReducer, persistedState,
   window.devToolsExtension && window.devToolsExtension()
 );
