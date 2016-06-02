@@ -6,10 +6,10 @@ import VisibleTodoList from './VisibleTodoList';
 
 /* eslint-disable react/prop-types, react/jsx-no-bind */
 
-const TodoApp = () => (
+const TodoApp = ({ params }) => (
   <div>
     <AddTodo />
-    <VisibleTodoList />
+    <VisibleTodoList filter={params.filter || 'all'} />
     <Footer />
   </div>
 );

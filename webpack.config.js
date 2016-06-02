@@ -40,6 +40,7 @@ if (TARGET === 'start' || !TARGET) {
       contentBase: PATHS.build,
       progress: true,
       stats: 'errors-only',
+      historyApiFallback: true,
     },
   });
 }
