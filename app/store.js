@@ -1,14 +1,18 @@
 import { createStore } from 'redux';
+import throttle from 'lodash/throttle';
 import rootReducer from './reducers/index';
+import { loadState, saveState } from './localStorage';
 
-const persistedState = {
-  todos: [{
-    id: 100,
-    text: 'Welcome back!',
-    completed: false,
-  }],
-};
+const persistedState = loadState();
 
-export default createStore(rootReducer, persistedState,
+const store = createStore(rootReducer, persistedState,
   window.devToolsExtension && window.devToolsExtension()
 );
+
+store.subscribe(throttle(() => {
+  saveState({
+    todos: store.getState().todos,
+  });
+}, 1000));
+
+export default store;

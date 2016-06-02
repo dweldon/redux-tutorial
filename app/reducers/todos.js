@@ -1,11 +1,11 @@
-import _ from 'underscore';
+import omit from 'lodash/omit';
 import expect from 'expect';
 import deepFreeze from 'deep-freeze';
 
 const todo = (state, action) => {
   switch (action.type) {
     case 'ADD_TODO': {
-      return { ..._.omit(action, 'type'), completed: false };
+      return { ...omit(action, 'type'), completed: false };
     }
     case 'TOGGLE_TODO':
       if (state.id !== action.id) {
