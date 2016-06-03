@@ -1,7 +1,5 @@
 import { createStore } from 'redux';
-import throttle from 'lodash/throttle';
 import rootReducer from './reducers/index';
-import { loadState, saveState } from './localStorage';
 
 /* eslint-disable no-console*/
 
@@ -23,21 +21,13 @@ const addLoggingToDispatch = (store) => {
 /* eslint-enable no-console*/
 
 const configureStore = () => {
-  const persistedState = loadState();
-
-  const store = createStore(rootReducer, persistedState,
+  const store = createStore(rootReducer, {},
     window.devToolsExtension && window.devToolsExtension()
   );
 
   if (process.env.NODE_ENV !== 'production') {
     store.dispatch = addLoggingToDispatch(store);
   }
-
-  store.subscribe(throttle(() => {
-    saveState({
-      todos: store.getState().todos,
-    });
-  }, 1000));
 
   return store;
 };
