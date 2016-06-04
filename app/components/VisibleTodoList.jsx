@@ -30,7 +30,7 @@ class VisibleTodoList extends React.Component {
 
 const mapStateToProps = (state, ownProps) => ({
   filter: ownProps.filter,
-  todos: getVisibleTodos(state),
+  todos: getVisibleTodos(state, ownProps.filter),
 });
 
 const VisibleTodoListWrapper = connect(
